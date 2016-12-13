@@ -108,7 +108,7 @@ function configure()
         source: search,
         templates: {
             empty: "no places found yet",
-            suggestion: _.template("<p>TODO</p>")
+            suggestion: _.template("<div><strong><%- name %>,<%- city %></strong>-<%- code %></div>")
         }
     });
 
