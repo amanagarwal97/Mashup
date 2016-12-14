@@ -48,7 +48,7 @@ $(function() {
     // options for map
     // https://developers.google.com/maps/documentation/javascript/reference#MapOptions
     var options = {
-        center: {lat: 26.8385, lng: 81.0384}, // Lucknow,Uttar Pradesh
+        center: {lat: 34.1355, lng: -118.1636}, // Pasadena,California
         disableDefaultUI: true,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
         maxZoom: 14,
@@ -79,13 +79,40 @@ function addMarker(place)
     var marker=new MarkerWithLabel({
         map : map,
         position : latlng,
-        animation: google.maps.Animation.DROP,
-        labelContent: place.place_name,
-        labelClass: "labels",
+        labelContent: '<div>'+ place.place_name + '</div>',
+        labelClass: "label",
         icon: img,
-        labelAnchor: new google.maps.Point(20,0)
+        labelAnchor: new google.maps.Point(10,0)
         
         
+    });
+    
+    var articles="<ul>";
+    var parameters={
+        geo:place.place_name
+    }
+    $.getJSON("articles.php",parameters)
+    .done(function(data, textStatus, jqXHR) {
+        for(var i=0; i< data.length;i++)
+        {
+            articles+="<li>"+"<a href=\"data[i].link\">"+ data[i].title+ "</a></li>";
+        }
+        
+        
+    })
+    .fail(function(jqXHR, textStatus, errorThrown) {
+
+        // log error to browser's console
+        console.log(errorThrown.toString());
+    });
+    
+    articles+="</ul>";
+    
+    
+    
+    //opens an info window 
+    marker.addListener("click",function(){
+       showInfo(marker,articles);
     });
 
 }
@@ -109,16 +136,9 @@ function configure()
     google.maps.event.addListener(map, "dragstart", function() {
         removeMarkers();
     });
+
     
-        
-    google.maps.event.addListener(map, "click",function(){
-        var infowindow=new google.maps.InfoWindow({
-            content:"CONTENT"
-        });
-        infowindow.open(map,marker);
-        
-    });
-    
+
 
     // configure typeahead
     // https://github.com/twitter/typeahead.js/blob/master/doc/jquery_typeahead.md
@@ -131,7 +151,7 @@ function configure()
         source: search,
         templates: {
             empty: "no places found yet",
-            suggestion: _.template("<div><strong><%- name %>,<%- city %></strong>-<%- code %></div>")
+            suggestion: _.template("<div><strong><%- name %>,<%- state %></strong>-<%- code %></div>")
         }
     });
 
