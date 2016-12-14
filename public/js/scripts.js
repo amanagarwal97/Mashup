@@ -87,6 +87,8 @@ function addMarker(place)
         
     });
     
+    markers.push(marker);
+    
     var articles="<ul>";
     var parameters={
         geo:place.place_name
