@@ -74,7 +74,20 @@ $(function() {
  */
 function addMarker(place)
 {
-    // TODO
+    var img="https://maps.google.com/mapfiles/kml/pal2/icon31.png";
+    var latlng=new google.maps.LatLng(place.latitude,place.longitude);
+    var marker=new MarkerWithLabel({
+        map : map,
+        position : latlng,
+        animation: google.maps.Animation.DROP,
+        labelContent: place.place_name,
+        labelClass: "labels",
+        icon: img,
+        labelAnchor: new google.maps.Point(20,0)
+        
+        
+    });
+
 }
 
 /**
@@ -96,6 +109,16 @@ function configure()
     google.maps.event.addListener(map, "dragstart", function() {
         removeMarkers();
     });
+    
+        
+    google.maps.event.addListener(map, "click",function(){
+        var infowindow=new google.maps.InfoWindow({
+            content:"CONTENT"
+        });
+        infowindow.open(map,marker);
+        
+    });
+    
 
     // configure typeahead
     // https://github.com/twitter/typeahead.js/blob/master/doc/jquery_typeahead.md
