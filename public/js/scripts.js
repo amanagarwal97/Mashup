@@ -110,8 +110,6 @@ function addMarker(place)
     
     articles+="</ul>";
     
-    
-    
     //opens an info window 
     marker.addListener("click",function(){
        showInfo(marker,articles);
@@ -140,8 +138,6 @@ function configure()
     });
 
     
-
-
     // configure typeahead
     // https://github.com/twitter/typeahead.js/blob/master/doc/jquery_typeahead.md
     $("#q").typeahead({
