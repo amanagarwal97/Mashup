@@ -29,4 +29,12 @@ It can be built for any country depending upon data of cities present using Goog
 ### Information about cities :
 - Data about cities is taken from [GeoNames](http://download.geonames.org/)
 - [Readme](http://download.geonames.org/export/zip/readme.txt) for GeoNames Postal Codes 
+- After Downloading COUNTRY.txt file run :
+  ```
+  ./import path/to/COUNTRY.txt
+  ```
+  
+  ### Known Issues :
+  Some countries might not work as news headlines are not available for each and every postal code.
+  No issues for US
 
